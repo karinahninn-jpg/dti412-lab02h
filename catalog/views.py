@@ -6,6 +6,7 @@ from django.http import Http404
 COURSES_DATA = [
     {
         'id': 101,
+        'code': 'DTI412',
         'title': 'DTI412 Special Topic in Application Development',
         'credits': 3,
         'instructor': 'Dr. Sirisuda Buathongkeow',
@@ -13,6 +14,7 @@ COURSES_DATA = [
     },
     {
         'id': 102,
+        'code': 'DTI201',
         'title': 'DTI201 Database Systems & Data Modeling',
         'credits': 3,
         'instructor': 'Department Faculty',
@@ -20,6 +22,7 @@ COURSES_DATA = [
     },
     {
         'id': 103,
+        'code': 'DTI305',
         'title': 'DTI305 Frontend Web Technologies & React',
         'credits': 3,
         'instructor': 'Department Faculty',
@@ -37,10 +40,25 @@ def home_view(request):
  
  
 def course_list_view(request):
+    query = request.GET.get('q', '').strip()
+ 
+    if query:
+        courses = [
+            course for course in COURSES_DATA
+            if query.lower() in course['title'].lower()
+            or query.lower() in course['code'].lower()
+        ]
+    else:
+        courses = COURSES_DATA
+ 
     context = {
-        'courses': COURSES_DATA,
+        'courses': courses,
+        'query': query,
     }
+ 
     return render(request, 'catalog/course_list.html', context)
+ 
+ 
  
  
 def course_detail_view(request, course_id):

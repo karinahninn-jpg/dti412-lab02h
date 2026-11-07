@@ -1,0 +1,63 @@
+ 
+{% extends 'catalog/base.html' %}
+ 
+{% block title %}Course Inquiry - CoursePortal{% endblock %}
+ 
+{% block content %}
+ 
+<h1 class="mb-4">Course Inquiry Form</h1>
+ 
+{% if success %}
+<div class="alert alert-success">
+    <h4>Inquiry Submitted Successfully!</h4>
+    <p>Thank you, {{ submitted_data.student_name }}.</p>
+    <p>We have received your inquiry.</p>
+</div>
+ 
+{% else %}
+ 
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+ 
+<form method="POST">
+    {% csrf_token %}
+ 
+    <div class="mb-3">
+        <label class="form-label">Student Name</label>
+        <input type="text" name="student_name" class="form-control"
+               value="{{ submitted_data.student_name|default:'' }}">
+    </div>
+ 
+    <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <input type="text" name="email" class="form-control"
+               value="{{ submitted_data.email|default:'' }}">
+    </div>
+ 
+    <div class="mb-3">
+        <label class="form-label">Course Code</label>
+        <input type="text" name="course_code" class="form-control"
+               value="{{ submitted_data.course_code|default:'' }}">
+    </div>
+ 
+    <div class="mb-3">
+        <label class="form-label">Message</label>
+        <textarea name="message" class="form-control" rows="4">{{ submitted_data.message|default:'' }}</textarea>
+    </div>
+ 
+    <button type="submit" class="btn btn-primary">
+        Submit Inquiry
+    </button>
+</form>
+ 
+{% endif %}
+ 
+{% endblock %}
+ 

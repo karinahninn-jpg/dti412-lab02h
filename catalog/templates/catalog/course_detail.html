@@ -1,0 +1,34 @@
+{% extends 'catalog/base.html' %}
+ 
+{% block title %}{{ course.title }} - CoursePortal{% endblock %}
+ 
+{% block content %}
+ 
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">{{ course.title }}</h1>
+ 
+        <hr>
+ 
+        <p><strong>Course ID:</strong> {{ course.id }}</p>
+ 
+        <p><strong>Credits:</strong> {{ course.credits }}</p>
+ 
+        <p><strong>Instructor:</strong> {{ course.instructor }}</p>
+ 
+        <h4>Description</h4>
+        <p>{{ course.description }}</p>
+ 
+        <a href="{% url 'catalog:course_list' %}"
+           class="btn btn-secondary">
+            Back to Courses
+        </a>
+ 
+        <a href="{% url 'catalog:inquiry' %}"
+           class="btn btn-primary">
+            Make an Inquiry
+        </a>
+    </div>
+</div>
+ 
+{% endblock %}

@@ -1,4 +1,3 @@
- 
 {% extends 'catalog/base.html' %}
  
 {% block title %}Courses - CoursePortal{% endblock %}
@@ -6,6 +5,22 @@
 {% block content %}
  
 <h1 class="mb-4">Our Courses</h1>
+ 
+<!-- Search Form -->
+<form method="GET" class="mb-4">
+    <div class="input-group">
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search by course title or code..."
+            value="{{ query }}"
+        >
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+    </div>
+</form>
  
 <div class="row">
     {% for course in courses %}
